@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-// Configure defaults for backend connectivity
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://xeno-crm-backend-a5if.onrender.com/api';
+// Configure defaults for backend connectivity directly
+axios.defaults.baseURL = 'https://xeno-crm-backend-a5if.onrender.com/api';
 
 // ==========================================
 // STATIC PROFILE DATA FOR OFFLINE MESH
