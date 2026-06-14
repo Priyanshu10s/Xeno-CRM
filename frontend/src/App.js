@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 // Configure defaults for backend connectivity
-axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
+axios.defaults.baseURL = process.env.REACT_APP_API_URL || 'https://xeno-crm-backend-a5if.onrender.com/api';
 
 // ==========================================
 // STATIC PROFILE DATA FOR OFFLINE MESH
@@ -206,9 +206,9 @@ export default function App() {
     return shoppers.filter(sh => {
       const matchText = searchQuery.trim()
         ? sh.first_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          sh.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          sh.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          sh.city.toLowerCase().includes(searchQuery.toLowerCase())
+        sh.last_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        sh.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        sh.city.toLowerCase().includes(searchQuery.toLowerCase())
         : true;
 
       const matchBadges = activeFilters.every(badge => {
@@ -395,7 +395,7 @@ export default function App() {
   const runAiCopywriter = async () => {
     setGeneratingAiCopy(true);
     setAiCopyOptions([]);
-    
+
     const payload = {
       tone: aiTone,
       product_category: aiProduct
@@ -457,13 +457,13 @@ export default function App() {
 
         await axios.post(`/campaigns/${campRes.data.id}/send/`);
         postConsoleLog(`[LAUNCHER] Asynchronous message queue tasks activated. Campaign ID: ${campRes.data.id}`, "success");
-        
+
         setMetrics(prev => ({
           ...prev,
           dispatched: prev.dispatched + filteredShoppers.length,
           pending: prev.pending + filteredShoppers.length
         }));
-        
+
         setActiveTab('telemetry');
       } catch (err) {
         postConsoleLog(`[LAUNCHER] Execution failure: ${err.message}`, "error");
@@ -512,7 +512,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0B0F19] text-slate-100 antialiased selection:bg-purple-500/30 flex flex-col font-sans relative overflow-x-hidden">
-      
+
       {/* Dynamic Style Injection for Hardware-Level Rotations & Glowing Effects */}
       <style>{`
         @keyframes xeno-spin {
@@ -605,11 +605,10 @@ export default function App() {
               setActiveTab('ingestion');
               postConsoleLog("[NAVIGATION] Switched tab matrix to Live Audiences.");
             }}
-            className={`flex items-center space-x-2 px-4.5 py-2.5 text-xs font-extrabold rounded-lg transition-all duration-300 border ${
-              activeTab === 'ingestion'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-white/15 text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]'
-                : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.02]'
-            }`}
+            className={`flex items-center space-x-2 px-4.5 py-2.5 text-xs font-extrabold rounded-lg transition-all duration-300 border ${activeTab === 'ingestion'
+              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-white/15 text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]'
+              : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.02]'
+              }`}
           >
             <svg className={`w-4 h-4 transition-transform duration-300 ${activeTab === 'ingestion' ? 'scale-110 text-purple-300' : 'text-slate-400'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" />
@@ -622,11 +621,10 @@ export default function App() {
               setActiveTab('orchestration');
               postConsoleLog("[NAVIGATION] Switched tab matrix to Campaign Studio.");
             }}
-            className={`flex items-center space-x-2 px-4.5 py-2.5 text-xs font-extrabold rounded-lg transition-all duration-300 border ${
-              activeTab === 'orchestration'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-white/15 text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]'
-                : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.02]'
-            }`}
+            className={`flex items-center space-x-2 px-4.5 py-2.5 text-xs font-extrabold rounded-lg transition-all duration-300 border ${activeTab === 'orchestration'
+              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-white/15 text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]'
+              : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.02]'
+              }`}
           >
             <svg className={`w-4 h-4 transition-transform duration-300 ${activeTab === 'orchestration' ? 'scale-110 text-emerald-300 animate-pulse' : 'text-slate-400'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M5 3v4M3 5h4M6 17v4M4 19h4m14-9h-4m2-2v4m-8-7l-1 2-2 1 2 1 1 2 1-2 2-1-2-1zm5 10l-1 2-2 1 2 1 1 2 1-2 2-1-2-1z" />
@@ -639,11 +637,10 @@ export default function App() {
               setActiveTab('telemetry');
               postConsoleLog("[NAVIGATION] Switched tab matrix to Telemetry Insights.");
             }}
-            className={`flex items-center space-x-2 px-4.5 py-2.5 text-xs font-extrabold rounded-lg transition-all duration-300 border ${
-              activeTab === 'telemetry'
-                ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-white/15 text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]'
-                : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.02]'
-            }`}
+            className={`flex items-center space-x-2 px-4.5 py-2.5 text-xs font-extrabold rounded-lg transition-all duration-300 border ${activeTab === 'telemetry'
+              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 border-white/15 text-white shadow-[0_0_15px_rgba(139,92,246,0.4)]'
+              : 'border-transparent text-slate-400 hover:text-slate-100 hover:bg-white/[0.02]'
+              }`}
           >
             <svg className={`w-4 h-4 transition-transform duration-300 ${activeTab === 'telemetry' ? 'scale-110 text-purple-300' : 'text-slate-400'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -655,23 +652,22 @@ export default function App() {
         {/* API Health State Indicator */}
         <div className="flex items-center space-x-3 bg-slate-950/60 border border-white/[0.06] rounded-xl px-3.5 py-2 text-[10px] font-mono">
           <span className="text-slate-400 uppercase">Gateway Node</span>
-          <span className={`h-2 w-2 rounded-full ${
-            apiOnline === true ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]' :
+          <span className={`h-2 w-2 rounded-full ${apiOnline === true ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.7)]' :
             apiOnline === false ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.7)] animate-ping' :
-            'bg-amber-400 animate-pulse'
-          }`} />
+              'bg-amber-400 animate-pulse'
+            }`} />
         </div>
       </header>
 
       {/* Main Panel Content Viewport */}
       <main className="flex-1 p-8 overflow-y-auto max-w-7xl mx-auto w-full space-y-8">
-        
+
         {/* ==========================================
             WORKSPACE 1: LIVE AUDIENCES & INGESTION
            ========================================== */}
         {activeTab === 'ingestion' && (
           <div className="w-full mx-auto max-w-7xl space-y-6 animate-fade-in">
-            
+
             {/* Global search & AI Schema Filter Compiler */}
             <div className="bg-slate-900/40 backdrop-blur-md border border-white/[0.05] rounded-2xl p-6 space-y-4">
               <div className="flex items-center justify-between">
@@ -686,7 +682,7 @@ export default function App() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                   </svg>
                 </div>
-                
+
                 <input
                   type="text"
                   placeholder={typedPlaceholder || "Type natural language filter prompt..."}
@@ -739,9 +735,8 @@ export default function App() {
               )}
 
               {feedback && (
-                <div className={`p-3 rounded-xl text-[10px] leading-relaxed flex items-center space-x-2 border ${
-                  feedback.type === 'success' ? 'bg-emerald-950/20 border-emerald-500/20 text-emerald-400' : 'bg-red-950/20 border-red-500/20 text-red-400'
-                }`}>
+                <div className={`p-3 rounded-xl text-[10px] leading-relaxed flex items-center space-x-2 border ${feedback.type === 'success' ? 'bg-emerald-950/20 border-emerald-500/20 text-emerald-400' : 'bg-red-950/20 border-red-500/20 text-red-400'
+                  }`}>
                   <span>{feedback.text}</span>
                 </div>
               )}
@@ -754,13 +749,13 @@ export default function App() {
                   <h4 className="text-sm font-extrabold text-white">Shoppers Index</h4>
                   <p className="text-[10px] text-slate-400 mt-1">Database audit tables displaying lifetime values.</p>
                 </div>
-                
+
                 {/* Command Action Bar */}
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-mono font-bold bg-purple-500/10 text-purple-400 border border-purple-500/20 px-2 py-0.5 rounded sm:mr-2">
                     {filteredShoppers.length} records matched
                   </span>
-                  
+
                   {/* Action Buttons */}
                   <button
                     onClick={() => { setDrawerFormType('single'); setIsDrawerOpen(true); }}
@@ -881,13 +876,11 @@ export default function App() {
                       setActiveChannel(ch.id);
                       postConsoleLog(`[CHANNEL_ORCHESTRATOR] Shifted outbound channel matrix to: ${ch.name}`);
                     }}
-                    className={`cursor-pointer p-4.5 rounded-2xl border transition-all duration-300 transform active:scale-95 flex items-center space-x-3.5 bg-slate-900/40 backdrop-blur-md ${
-                      isActive ? ch.activeColor : ch.inactiveColor
-                    }`}
+                    className={`cursor-pointer p-4.5 rounded-2xl border transition-all duration-300 transform active:scale-95 flex items-center space-x-3.5 bg-slate-900/40 backdrop-blur-md ${isActive ? ch.activeColor : ch.inactiveColor
+                      }`}
                   >
-                    <div className={`p-2.5 rounded-xl transition-all duration-300 ${
-                      isActive ? 'bg-slate-950/80 border border-white/10' : 'bg-slate-950 border border-white/[0.05]'
-                    }`}>
+                    <div className={`p-2.5 rounded-xl transition-all duration-300 ${isActive ? 'bg-slate-950/80 border border-white/10' : 'bg-slate-950 border border-white/[0.05]'
+                      }`}>
                       {ch.id === 'whatsapp' && (
                         <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <defs>
@@ -1096,7 +1089,7 @@ export default function App() {
               {/* Smartphone Mockup */}
               <div className="flex justify-center items-center">
                 <div className="w-[285px] h-[555px] bg-slate-900 border-[8px] border-slate-950 rounded-[40px] shadow-2xl relative flex flex-col overflow-hidden ring-1 ring-white/10 shadow-[0_0_50px_rgba(139,92,246,0.15)]">
-                  
+
                   {/* Notch */}
                   <div className="absolute top-0 inset-x-0 h-6 bg-slate-950 flex items-center justify-center z-20">
                     <div className="w-16 h-3.5 bg-slate-900 border border-white/5 rounded-full flex items-center justify-end px-1.5">
@@ -1134,11 +1127,10 @@ export default function App() {
                       </div>
                     ) : (
                       <div className="max-w-[85%] self-end space-y-1">
-                        <div className={`p-3 rounded-2xl text-[10px] leading-relaxed text-slate-100 rounded-tr-none ${
-                          activeChannel === 'whatsapp' ? 'bg-emerald-900/30 border border-emerald-500/20' :
+                        <div className={`p-3 rounded-2xl text-[10px] leading-relaxed text-slate-100 rounded-tr-none ${activeChannel === 'whatsapp' ? 'bg-emerald-900/30 border border-emerald-500/20' :
                           activeChannel === 'sms' ? 'bg-indigo-900/30 border border-indigo-500/20' :
-                          'bg-amber-900/30 border border-amber-500/20'
-                        }`}>
+                            'bg-amber-900/30 border border-amber-500/20'
+                          }`}>
                           <p className="whitespace-pre-line">{getSmartphonePreview()}</p>
                         </div>
                         <span className="block text-[7px] text-slate-500 text-right">Previewing bindings</span>
@@ -1160,7 +1152,7 @@ export default function App() {
                     </svg>
                     <h3 className="text-sm font-extrabold text-white">Execute Outbound Queue</h3>
                   </div>
-                  
+
                   <p className="text-[11px] text-slate-400 leading-relaxed">
                     Confirm launching this campaign targeting <strong className="text-emerald-400 font-mono">{filteredShoppers.length} consumers</strong>. Tasks will be asynchronously processed.
                   </p>
@@ -1192,7 +1184,7 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 animate-fade-in">
             {/* Left 2/3: metrics and custom graphs */}
             <div className="lg:col-span-2 space-y-8">
-              
+
               {/* North-Star Metric Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-slate-900/40 backdrop-blur-md border-l-2 border-l-purple-500 border-y border-r border-white/[0.05] p-5 rounded-2xl space-y-2 hover:bg-slate-900/60 transition duration-300">
@@ -1247,7 +1239,7 @@ export default function App() {
 
               {/* Dynamic SVG Charts */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                
+
                 {/* Donut segment rings */}
                 <div className="bg-slate-900/40 backdrop-blur-md border border-white/[0.05] rounded-2xl p-6 flex flex-col justify-between h-[280px]">
                   <div>
@@ -1320,15 +1312,15 @@ export default function App() {
                           <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
                         </linearGradient>
                       </defs>
-                      
+
                       {/* Grid lines */}
                       <line x1="15" y1="10" x2="285" y2="10" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
                       <line x1="15" y1="50" x2="285" y2="50" stroke="rgba(255,255,255,0.03)" strokeWidth="0.5" />
                       <line x1="15" y1="90" x2="285" y2="90" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                      
+
                       {/* Gradient Fill Area */}
                       <path d={getSvgFillPath()} fill="url(#area-grad)" className="transition-all duration-500" />
-                      
+
                       {/* Glowing Line */}
                       <polyline
                         fill="none" stroke="#8B5CF6" strokeWidth="1.5"
@@ -1405,7 +1397,7 @@ export default function App() {
       {isDrawerOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">
           {/* Backdrop Overlay */}
-          <div 
+          <div
             className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
             onClick={() => setIsDrawerOpen(false)}
           />
@@ -1413,7 +1405,7 @@ export default function App() {
           {/* Drawer Panel */}
           <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
             <div className="w-[420px] bg-[#0F1322]/90 backdrop-blur-xl border-l border-white/0.05 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out transform translate-x-0">
-              
+
               {/* Drawer Header */}
               <div className="px-6 py-5 border-b border-white/[0.06] flex items-center justify-between bg-slate-950/20">
                 <div>
@@ -1428,7 +1420,7 @@ export default function App() {
                     {drawerFormType === 'bulk' && 'Ingest batch arrays of shoppers or orders.'}
                   </p>
                 </div>
-                <button 
+                <button
                   onClick={() => setIsDrawerOpen(false)}
                   className="p-1 bg-white/5 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition duration-150 font-bold"
                 >
@@ -1438,7 +1430,7 @@ export default function App() {
 
               {/* Drawer Content */}
               <div className="flex-1 overflow-y-auto p-6 space-y-6">
-                
+
                 {/* Form Type: Single Shopper Ingest */}
                 {drawerFormType === 'single' && (
                   <form onSubmit={handleShopperSubmit} className="space-y-4 text-[11px]">
@@ -1447,7 +1439,7 @@ export default function App() {
                         <label className="block text-[8px] uppercase font-bold text-slate-400 mb-1">First Name</label>
                         <input
                           type="text" required value={shopperForm.first_name}
-                          onChange={e => setShopperForm({...shopperForm, first_name: e.target.value})}
+                          onChange={e => setShopperForm({ ...shopperForm, first_name: e.target.value })}
                           className="w-full bg-slate-950 border border-white/[0.08] focus:border-purple-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition duration-150"
                         />
                       </div>
@@ -1455,7 +1447,7 @@ export default function App() {
                         <label className="block text-[8px] uppercase font-bold text-slate-400 mb-1">Last Name</label>
                         <input
                           type="text" required value={shopperForm.last_name}
-                          onChange={e => setShopperForm({...shopperForm, last_name: e.target.value})}
+                          onChange={e => setShopperForm({ ...shopperForm, last_name: e.target.value })}
                           className="w-full bg-slate-950 border border-white/[0.08] focus:border-purple-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition duration-150"
                         />
                       </div>
@@ -1464,7 +1456,7 @@ export default function App() {
                       <label className="block text-[8px] uppercase font-bold text-slate-400 mb-1">Email Identifier</label>
                       <input
                         type="email" required value={shopperForm.email}
-                        onChange={e => setShopperForm({...shopperForm, email: e.target.value})}
+                        onChange={e => setShopperForm({ ...shopperForm, email: e.target.value })}
                         className="w-full bg-slate-950 border border-white/[0.08] focus:border-purple-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition duration-150"
                       />
                     </div>
@@ -1472,7 +1464,7 @@ export default function App() {
                       <label className="block text-[8px] uppercase font-bold text-slate-400 mb-1">Phone String</label>
                       <input
                         type="text" required value={shopperForm.phone}
-                        onChange={e => setShopperForm({...shopperForm, phone: e.target.value})}
+                        onChange={e => setShopperForm({ ...shopperForm, phone: e.target.value })}
                         className="w-full bg-slate-950 border border-white/[0.08] focus:border-purple-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition duration-150"
                       />
                     </div>
@@ -1480,7 +1472,7 @@ export default function App() {
                       <label className="block text-[8px] uppercase font-bold text-slate-400 mb-1">Location (City)</label>
                       <input
                         type="text" required value={shopperForm.city}
-                        onChange={e => setShopperForm({...shopperForm, city: e.target.value})}
+                        onChange={e => setShopperForm({ ...shopperForm, city: e.target.value })}
                         className="w-full bg-slate-950 border border-white/[0.08] focus:border-purple-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition duration-150"
                       />
                     </div>
@@ -1501,7 +1493,7 @@ export default function App() {
                       <input
                         type="email" required placeholder="name@example.com"
                         value={orderForm.shopper_email}
-                        onChange={e => setOrderForm({...orderForm, shopper_email: e.target.value})}
+                        onChange={e => setOrderForm({ ...orderForm, shopper_email: e.target.value })}
                         className="w-full bg-slate-950 border border-white/[0.08] focus:border-emerald-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition"
                       />
                     </div>
@@ -1510,7 +1502,7 @@ export default function App() {
                       <input
                         type="text" required placeholder="e.g. Classic Watch"
                         value={orderForm.product_name || ''}
-                        onChange={e => setOrderForm({...orderForm, product_name: e.target.value})}
+                        onChange={e => setOrderForm({ ...orderForm, product_name: e.target.value })}
                         className="w-full bg-slate-950 border border-white/[0.08] focus:border-emerald-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition"
                       />
                     </div>
@@ -1519,7 +1511,7 @@ export default function App() {
                       <input
                         type="number" required placeholder="e.g. 7500"
                         value={orderForm.amount}
-                        onChange={e => setOrderForm({...orderForm, amount: e.target.value})}
+                        onChange={e => setOrderForm({ ...orderForm, amount: e.target.value })}
                         className="w-full bg-slate-950 border border-white/[0.08] focus:border-emerald-500 rounded-lg px-2.5 py-2 text-white focus:outline-none transition"
                       />
                     </div>
@@ -1537,7 +1529,7 @@ export default function App() {
                   <div className="space-y-6">
                     <div>
                       <span className="block text-[9px] uppercase tracking-wider font-extrabold text-slate-400 mb-3">Bulk Ingestion Station</span>
-                      
+
                       <div className="space-y-4">
                         <div>
                           <label className="block text-[8px] uppercase font-bold text-slate-500 mb-1">Shopper Array (JSON)</label>
