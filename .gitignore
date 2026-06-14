@@ -1,0 +1,17 @@
+# Local database
+db.sqlite3
+
+# Python compiled files
+__pycache__/
+*.pyc
+
+# Environment variables and secrets
+.env
+
+# Redis local snapshot cache
+dump.rdb
+
+# Frontend and Backend Dependencies (Absolute Block)
+node_modules/
+frontend/node_modules/
+backend/node_modules/
